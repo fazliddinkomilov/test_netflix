@@ -27,7 +27,6 @@ jobs:
         run: pip install -r requairments.txt
       - name: Run Tests
         run: pytest
-
   flake8:
     runs-on: ubuntu-latest
     steps:
