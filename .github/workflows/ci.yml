@@ -19,8 +19,8 @@ jobs:
     steps:
       - uses: actions/chekout@v2
       - uses: actions/setup-python@v2
-      with:
-          - python-version: 3.7
+        with:
+          python-version: 3.7
       - name: Install Requairments
       - run: pip install -r requairments.txt
       - run: Run Tests
