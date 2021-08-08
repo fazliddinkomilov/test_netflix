@@ -1,0 +1,30 @@
+name: Movie API CI
+on: [push]
+jobs:
+  run_tests:
+    services:
+      postgres:
+        image: postgres:9.6
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+    runs-on: ubuntu-latest
+    env:
+      DJANGO_SETTINGS_MODUL : netflix.settings
+    steps:
+      - uses: actions/chekout@v2
+      - uses: actions/setup-python@2
+      with:
+          - python-version: 3.7
+      - name: Install Requairments
+      - run: pip install -r requairments.txt
+      - run: Run Tests
+      - run: pytest
+
+
+
+
+
