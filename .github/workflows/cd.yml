@@ -28,6 +28,18 @@ jobs:
       - name: Run Tests
         run: pytest
 
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install Dependencies
+        run: pip install poetry && poetry install
+      - name: Run flake8
+        run: git diff HEAD $(git merge-base HEAD origin/master)  | poetry run flake8 --diff
   deploy:
     runs-on: ubuntu-latest
     needs: test
@@ -35,8 +47,9 @@ jobs:
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
-          host: localhost
-          username: root
+          host: ${{ secrets.HOST }} #hostyozliadi
+          username: ${{ secrets.USERNAME }} #username yoziladi
+          password: ${{ secrets.PASSWORD }} #password yoziladi
+          port: ${{ secrets.PORT }} #port yoziladi
           script: |
             git pull
-
