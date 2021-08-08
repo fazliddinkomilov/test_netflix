@@ -38,5 +38,5 @@ jobs:
           host: localhost
           username: root
           script: |
-            git pul
+            git pull
 
