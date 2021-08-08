@@ -1,0 +1,42 @@
+name: Movie API CD
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  run_tests:
+    services:
+      postgres:
+        image: postgres:9.6
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+    runs-on: ubuntu-latest
+    env:
+      DJANGO_SETTINGS_MODUL : netflix.settings
+    steps:
+      - uses: actions/chekout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Install Requairments
+        run: pip install -r requairments.txt
+      - name: Run Tests
+        run: pytest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: localhost
+          username: root
+          script: |
+            git pul
+
