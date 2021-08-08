@@ -17,6 +17,7 @@ jobs:
     env:
       DJANGO_SETTINGS_MODUL : netflix.settings
 
+
   flake8:
     runs-on: ubuntu-latest
     steps:
